@@ -1,0 +1,47 @@
+﻿namespace DotNet.DesignPattern.Intermediate
+{
+    using System;
+
+    /// <summary>
+    ///     Concrete Mediator Class
+    /// </summary>
+    class ConcreteMediator : IMediator
+    {
+        private Component1 _component1;
+
+        private Component2 _component2;
+
+        /// <summary>
+        ///     Paramerized constructor ConcreteMediator
+        /// </summary>
+        /// <param name="component1"></param>
+        /// <param name="component2"></param>
+        public ConcreteMediator(Component1 component1, Component2 component2)
+        {
+            this._component1 = component1;
+            this._component1.SetMediator(this);
+            this._component2 = component2;
+            this._component2.SetMediator(this);
+        }
+
+        /// <summary>
+        ///     Notify
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="ev"></param>
+        public void Notify(object sender, string ev)
+        {
+            if (ev == "A")
+            {
+                Console.WriteLine();
+                this._component2.DoC();
+            }
+            if (ev == "D")
+            {
+                Console.WriteLine(GlobalText.MediatorReactsOnAMessage);
+                this._component1.DoB();
+                this._component2.DoC();
+            }
+        }
+    }
+}
